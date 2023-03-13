@@ -1,10 +1,16 @@
 import React from "react";
+import { useHistory } from "react-router-dom";
 import Login from "./Login";
 import Profile from "./Profile";
-
 const PrivateRoute= ()=>{
-    return(
-        <div>{localStorage.getItem('username') === 'abc' && localStorage.getItem('password') === '123' ? <Profile/> : <Login />}</div>
-    )
+    const history = useHistory();
+    console.log(history);
+    if(!localStorage.getItem('username') || !localStorage.getItem('password')){
+        history.push('/login');
+        return null;
+    }
+    else{
+        return <Profile />;
+    }
 }
 export default PrivateRoute;
